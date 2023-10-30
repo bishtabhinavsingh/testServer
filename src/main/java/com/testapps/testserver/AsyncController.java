@@ -11,6 +11,7 @@ public class AsyncController {
 
     @GetMapping("/async/gettest")
     public CompletableFuture<ResponseEntity<String>> asyncGet(@RequestParam("variable") String variable){
+        System.out.println("GET - check");
         return CompletableFuture.supplyAsync(() ->{
             try {
                 Thread.sleep(1000L);
@@ -22,6 +23,7 @@ public class AsyncController {
     }
     @PutMapping("/async/puttest")
     public CompletableFuture<ResponseEntity<String>> asyncPut(@RequestBody String put){
+        System.out.println("PUT - check");
         return CompletableFuture.supplyAsync(() ->{
             try {
                 Thread.sleep(1000L);
@@ -33,6 +35,7 @@ public class AsyncController {
     }
     @PostMapping("/async/posttest")
     public CompletableFuture<ResponseEntity<String>> asyncPost(@RequestBody String post){
+        System.out.println("POST - check");
         return CompletableFuture.supplyAsync(() ->{
             try {
                 Thread.sleep(1000L);
@@ -44,6 +47,7 @@ public class AsyncController {
     }
     @DeleteMapping("/async/deletetest/{del}")
     public CompletableFuture<ResponseEntity<String>> asyncDelete(@PathVariable String del){
+        System.out.println("DEL - check");
         return CompletableFuture.supplyAsync(() ->{
             try {
                 Thread.sleep(1000L);
@@ -57,8 +61,10 @@ public class AsyncController {
         if ("check".equalsIgnoreCase(param)){
             return ResponseEntity.status(HttpStatus.OK).body(param);
         } else if ("server".equalsIgnoreCase(param)){
+            System.out.println("Server Fail simulation");
             return ResponseEntity.status(HttpStatus.valueOf(500)).body(param);
         } else if("client".equalsIgnoreCase(param)){
+            System.out.println("Client Fail simulation");
             return ResponseEntity.status(HttpStatus.valueOf(400)).body(param);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(param);
